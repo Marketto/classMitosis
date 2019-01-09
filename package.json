@@ -1,0 +1,46 @@
+{
+  "name": "@marketto/class-mitosis",
+  "version": "1.0",
+  "description": "Command line tool to automatic copy and rename a folder of js classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=lcovonly mocha",
+    "coverage": "nyc report --reporter=lcovonly | coveralls"
+  },
+  "bin": {
+    "mitosis": "./commandline.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marketto/classMitosis.git"
+  },
+  "keywords": [
+    "js",
+    "es",
+    "copy"
+  ],
+  "author": "Marco Ricupero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Marketto/classMitosis/issues"
+  },
+  "homepage": "https://github.com/Marketto/classMitosis#readme",
+  "dependencies": {
+    "@marketto/js-logger": "^1.0.1",
+    "bash-color": "0.0.4",
+    "body-parser": "^1.18.2",
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.11",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-things": "^0.2.0",
+    "coveralls": "^3.0.1",
+    "mocha": "^5.1.1",
+    "nyc": "^11.7.3",
+    "sonarqube-scanner": "^2.1.1"
+  }
+}
