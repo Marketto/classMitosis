@@ -145,6 +145,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({directories}) => {
                         directories.should.include('examples/test-unit')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -152,6 +155,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({directories}) => {
                         directories.should.include('examples/test-unit/part')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -159,6 +165,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({directories}) => {
                         directories.should.include('examples/test-unit/part/test-unit-sub-part')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -166,6 +175,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({directories}) => {
                         directories.should.include('examples/test-unit/section')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -173,6 +185,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({directories}) => {
                         directories.should.not.include('examples/test-unit/part/i-should-not-be-here')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
             });
@@ -182,6 +197,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({files}) => {
                         files.should.include('examples/test-unit/test-unit-main.file.js')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -189,6 +207,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({files}) => {
                         files.should.include('examples/test-unit/part/test-unit-sub-part/test-unit-sub-part.test.js')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -196,6 +217,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({files}) => {
                         files.should.include('examples/test-unit/part/test-unit-part.class.js')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
 
@@ -203,6 +227,9 @@ describe('Mitosi', () => {
                     fetchPromise.then(({files}) => {
                         files.should.not.include('examples/test-unit/section/i-should-not-be.here.js')
                         done();
+                    }).catch(err => {
+                        done();
+                        throw err;
                     });
                 });
             });
