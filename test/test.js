@@ -1,22 +1,22 @@
-const {Mitosis} = require('../');
 const chai = require('chai');
+const path = require('path');
+const logger = require("@marketto/js-logger").global();
 
 chai.use(require('chai-things'));
 chai.should();
 
-describe('Mitosi', () => {
-    const targetTestPath = 'examples/test-unit';
-    const destinationTestPath = 'examples/chai-mitosi-test';
+const targetTestPath = 'examples/test-unit';
+const destinationTestPath = 'examples/chai-mitosi-test';
 
-    before(() => {
-        const logger = require("@marketto/js-logger").global();
-        logger.config = {
-            error: true,
-            info: false,
-            debug: false,
-            warn: false
-        };
-    });
+const clearDestPath = () => {
+    const rimraf = require('rimraf');
+    rimraf.sync(path.join(process.cwd(), destinationTestPath));
+};
+
+logger.config = { error: true, info: false, debug: false, warn: false };
+
+describe('Mitosis', () => {
+    const {Mitosis} = require('../');
 
     describe('properties', () => {
         describe('ABSOLUTE_PATH_MATCHER', () => {
@@ -102,51 +102,32 @@ describe('Mitosi', () => {
         describe('multiCaseReplacer', () => {
             const replacer = Mitosis.multiCaseReplacer('test-string', 'replaced-text');
 
-            describe('camelCase', () => {
-                it('Should replace testStringCamelCase with replacedTextCamelCase', () => {
-                    replacer('testStringCamelCase').should.be.equal('replacedTextCamelCase');
-                });
+            it('camelCase - Should replace testStringCamelCase with replacedTextCamelCase', () => {
+                replacer('testStringCamelCase').should.be.equal('replacedTextCamelCase');
             });
 
-            describe('CamelCase', () => {
-                it('Should replace StringTestStringTest with StringReplacedTextTest', () => {
-                    replacer('StringTestStringTest').should.be.equal('StringReplacedTextTest');
-                });
+            it('CamelCase - Should replace StringTestStringTest with StringReplacedTextTest', () => {
+                replacer('StringTestStringTest').should.be.equal('StringReplacedTextTest');
             });
 
-                
-            describe('kebap-case', () => {
-                it('Should replace test-string-test-test-string with replaced-text-test-replaced-text', () => {
-                    replacer('test-string-test-test-string').should.be.equal('replaced-text-test-replaced-text');
-                });
+            it('kebap-case - Should replace test-string-test-test-string with replaced-text-test-replaced-text', () => {
+                replacer('test-string-test-test-string').should.be.equal('replaced-text-test-replaced-text');
             });
 
-                
-            describe('snake-case', () => {
-                it('Should replace test_string_test_test_string with replaced_text_test_replaced_text', () => {
-                    replacer('test_string_test_test_string').should.be.equal('replaced_text_test_replaced_text');
-                });
+            it('snake-case - Should replace test_string_test_test_string with replaced_text_test_replaced_text', () => {
+                replacer('test_string_test_test_string').should.be.equal('replaced_text_test_replaced_text');
             });
 
-            describe('Start Case', () => {
-                it('Should replace "I am Test string" with "I am Replaced text"', () => {
-                    replacer('I am Test string')
-                        .should.be.equal('I am Replaced text');
-                });
+            it('Start Case - Should replace "I am Test string" with "I am Replaced text"', () => {
+                replacer('I am Test string').should.be.equal('I am Replaced text');
             });
 
-            describe('start case', () => {
-                it('Should replace "...sometimes test string" with "...sometimes replaced text"', () => {
-                    replacer('...sometimes test string')
-                        .should.be.equal('...sometimes replaced text');
-                });
+            it('start case - Should replace "...sometimes test string" with "...sometimes replaced text"', () => {
+                replacer('...sometimes test string').should.be.equal('...sometimes replaced text');
             });
 
-            describe('Start case', () => {
-                it('Should replace "...rarely Test String" with "...rarely Replaced Text"', () => {
-                    replacer('...rarely Test String')
-                        .should.be.equal('...rarely Replaced Text');
-                });
+            it('Start case - Should replace "...rarely Test String" with "...rarely Replaced Text"', () => {
+                replacer('...rarely Test String').should.be.equal('...rarely Replaced Text');
             });
         });
 
@@ -225,16 +206,12 @@ describe('Mitosi', () => {
             const allDataPromise = done => Promise.all([
                     Mitosis.fetch(targetTestPath),
                     Mitosis.copy(targetTestPath, destinationTestPath)
-                        .then(copy => Mitosis.fetch(destinationTestPath)
-                            .then(dest => ({ copy, dest })))
-                ])
-                .then(([target, {copy, dest}]) => ({ copy, dest, target }))
-                .catch(done);
+                        .then(copy => Mitosis.fetch(destinationTestPath).then(dest => ({ copy, dest })))
+                ]).catch(done)
+                .then(([target, {copy, dest}]) => ({ copy, dest, target }));
+
             done => Mitosis.copy(targetTestPath, destinationTestPath).then(copy => {
-                    return Mitosis.fetch(destinationTestPath).then(dest => ({
-                        copy,
-                        dest
-                    })).catch(done);
+                    return Mitosis.fetch(destinationTestPath).then(dest => ({ copy, dest })).catch(done);
                 }).catch(done);
 
             it('Should return the same, or a subset list, of fetched destination directories', done => {
@@ -271,9 +248,49 @@ describe('Mitosi', () => {
         });
     });
 
-    after(() => {
-        const rimraf = require('rimraf');
-        const path = require('path');
-        rimraf.sync(path.join(process.cwd(), destinationTestPath));
+    after(clearDestPath);
+});
+
+describe('MitosisProgram', () => {
+    const MitosisProgram = require('../dist/mitosis.program');
+
+    it('Should throw an error', done => {
+        MitosisProgram({
+            argv: [
+                process.argv[0],
+                'mitosis'
+            ],
+            cwd: process.cwd()
+        })
+        .then(status => {
+            status.should.be.equal(-1);
+            done();
+        })
+        .catch(err => {
+            err.message.should.be.equal('No destination path provided');
+            done();
+        });
     });
+
+    it('Should perform the copy using local path', done => {
+        const testCurrentWorkingDir = path.join(process.cwd(), targetTestPath);
+        MitosisProgram({
+            argv: [
+                process.argv[0],
+                'commandline.js',
+                '-d',
+                path.relative(testCurrentWorkingDir, path.join(process.cwd(), destinationTestPath))
+            ],
+            cwd: testCurrentWorkingDir
+        })
+        .then(() => {
+            done();
+        })
+        .catch(err => {
+            logger.error(err);
+            done(err);
+        });
+    });
+
+    after(clearDestPath);
 });

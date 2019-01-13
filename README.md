@@ -48,6 +48,11 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.4
+- Reduced cognitive complexity in Mitosis.fetch
+- Added command line test
+- Fixed path issue on fetch in copy method
+- Removed catch in Mitosis promise to prevent false positive
 ### 1.0.3
 - Readme update
 - Reduced cognitive complexity in Mitosis.copy

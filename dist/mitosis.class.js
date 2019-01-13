@@ -26,7 +26,7 @@ class Mitosis {
      * @requires lodash
      * @memberof Mitosis
      */
-    static fetch(srcPath, {
+    static async fetch(srcPath, {
         excludeHidden = true,
         excludeSymLinks = true
     } = {
@@ -37,34 +37,18 @@ class Mitosis {
         const path = require('path');
         const _ = require('lodash');
 
-        return new Promise(( resolve, reject ) => {
-            try {
-                fs.existsSync(srcPath);
-                fs.accessSync(srcPath, fs.constants.R_OK);
-            } catch (e) {
-                return reject(e);
-            }
-            return (new Promise((r, j) => {
-                fs.readdir(srcPath, null, (err, data) => {
-                    if(err) {
-                        throw j(err);
-                    }
-                    return r(data);
-                });
-            }))
+        const promiser = syncFunction => {
+            return async (...params) => syncFunction(...params);
+        };
+        fs.existsSync(srcPath);
+        fs.accessSync(srcPath, fs.constants.R_OK);
+        return promiser(fs.readdirSync)(srcPath)
             .then(dirContent => {
                 const targetContent = excludeHidden ? dirContent.filter(entry => !(/^\./).test(entry)) : dirContent;
 
                 return Promise.all(targetContent.map(entry => {
                     const entryPath = path.join(srcPath, entry);
-                    return new Promise((r, j) => {
-                            fs.stat(entryPath, (err, stats) => {
-                                if (err) {
-                                    return j(err);
-                                }
-                                return r(stats);
-                            });
-                        })
+                    return promiser(fs.statSync)(entryPath)
                         .then(stat => (!excludeSymLinks || !stat.isSymbolicLink()) && stat)
                         .then(stat => {
                             if (!stat) {
@@ -74,30 +58,24 @@ class Mitosis {
                                 return Mitosis.fetch(entryPath, {
                                     excludeHidden,
                                     excludeSymLinks
-                                }).then(({ directories = [], files = [] }) => {
-                                    return {
-                                        directories: [entryPath].concat(directories),
-                                        files
-                                    };
-                                });
+                                }).then(({ directories = [], files = [] }) => ({
+                                    directories: [entryPath].concat(directories),
+                                    files
+                                }));
                             }
                             return {files: [entryPath], directories: [path.normalize(srcPath)]};
                         });
                 }).concat(targetContent.length ? [] : {directories: [path.normalize(srcPath)]}))
                 .then((fetchList = []) => {
-                    if (fetchList.length > 1) {
-                        return fetchList.reduce((prev, cur) => ({
-                            files: (prev.files || []).concat(cur.files || []),
-                            directories: (prev.directories || []).concat(cur.directories || [])
-                        }));
-                    }
-                    return fetchList[0];
-                })
-                .then(({files, directories}) => ({files, directories: _.sortedUniq(directories)}));
-            })
-            .then(resolve)
-            .catch(reject);
-        });
+                    const out = {directories: [], files: []};
+                    fetchList.forEach(({directories = [], files = []}) => {
+                        out.files = out.files.concat(files);
+                        out.directories = out.directories.concat(directories);
+                    });
+                    out.directories = _.sortedUniq(out.directories);
+                    return out;
+                });
+            });
     }
 
     /**
@@ -192,7 +170,7 @@ class Mitosis {
         const fs = require('fs');
         const path = require('path');
         const logger = require("@marketto/js-logger").global();
-        
+
         logger.info(`Replacing ${targetString} => ${replacingString} in paths and contents...`);
         const replacer = this.multiCaseReplacer(targetString, replacingString);
 
@@ -208,10 +186,9 @@ class Mitosis {
             files: []
         };
 
-        return this.fetch(path.join(cwd, srcPath)).then(({files, directories}) => {
+        return this.fetch(srcFullPath).then(({files, directories}) => {
             logger.info('Source path fetched');
 
-            
             logger.info('Making directories...');
             directories
                 .sort()
@@ -228,7 +205,7 @@ class Mitosis {
             return Promise.all(files.map(srcFile => {
                 const destFile = replacer(path.relative(srcFullPath, srcFile));
                 const destFileFullPath = path.join(destFullPath, destFile);
-                
+
                 logger.info(`Reading ${srcFile}`);
                 return promiser(fs.readFileSync)(srcFile, {encoding})
                     .then((data = '') => {
@@ -244,8 +221,7 @@ class Mitosis {
             }));
         })
         .then(() => logger.info('Copy Complete'))
-        .then(() => copiedResources)
-        .catch(err => logger.error(err));
+        .then(() => copiedResources);
     }
 }
 
