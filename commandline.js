@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-(async () => { //eslint-disable-line require-await
+(async () => {
   const program = require('commander');
   const pkgjson = require('./package.json');
 

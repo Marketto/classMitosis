@@ -70,7 +70,7 @@
         "func-name-matching": "error",
         "func-names": "off",
         "func-style": [
-            "error",
+            "off",
             "declaration"
         ],
         "function-paren-newline": "error",
@@ -243,7 +243,7 @@
             "as-needed"
         ],
         "require-atomic-updates": "error",
-        "require-await": "error",
+        "require-await": "off",
         "require-jsdoc": "off",
         "require-unicode-regexp": "off",
         "rest-spread-spacing": [

@@ -5,6 +5,18 @@ chai.use(require('chai-things'));
 chai.should();
 
 describe('Mitosi', () => {
+    const targetTestPath = 'examples/test-unit';
+    const destinationTestPath = 'examples/chai-mitosi-test';
+
+    before(() => {
+        const logger = require("@marketto/js-logger").global();
+        logger.config = {
+            error: true,
+            info: false,
+            debug: false,
+            warn: false
+        };
+    });
 
     describe('properties', () => {
         describe('ABSOLUTE_PATH_MATCHER', () => {
@@ -89,6 +101,7 @@ describe('Mitosi', () => {
 
         describe('multiCaseReplacer', () => {
             const replacer = Mitosis.multiCaseReplacer('test-string', 'replaced-text');
+
             describe('camelCase', () => {
                 it('Should replace testStringCamelCase with replacedTextCamelCase', () => {
                     replacer('testStringCamelCase').should.be.equal('replacedTextCamelCase');
@@ -138,102 +151,129 @@ describe('Mitosi', () => {
         });
 
         describe('fetch', () => {
-            const fetchPromise = Mitosis.fetch('examples/test-unit');
+            const fetchPromise = Mitosis.fetch(targetTestPath);
 
             describe('directories', () => {
                 it('Should contain test-unit', done => {
                     fetchPromise.then(({directories}) => {
-                        directories.should.include('examples/test-unit')
+                        directories.should.include(targetTestPath)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should contain test-unit/part', done => {
                     fetchPromise.then(({directories}) => {
-                        directories.should.include('examples/test-unit/part')
+                        directories.should.include(`${targetTestPath}/part`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should contain test-unit/part/test-unit-sub-part', done => {
                     fetchPromise.then(({directories}) => {
-                        directories.should.include('examples/test-unit/part/test-unit-sub-part')
+                        directories.should.include(`${targetTestPath}/part/test-unit-sub-part`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should contain test-unit/section', done => {
                     fetchPromise.then(({directories}) => {
-                        directories.should.include('examples/test-unit/section')
+                        directories.should.include(`${targetTestPath}/section`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should not contain test-unit/part/i-should-not-be-here', done => {
                     fetchPromise.then(({directories}) => {
-                        directories.should.not.include('examples/test-unit/part/i-should-not-be-here')
+                        directories.should.not.include(`${targetTestPath}/part/i-should-not-be-here`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
             });
 
             describe('files', () => {
                 it('Should contain test-unit-main.file.js', done => {
                     fetchPromise.then(({files}) => {
-                        files.should.include('examples/test-unit/test-unit-main.file.js')
+                        files.should.include(`${targetTestPath}/test-unit-main.file.js`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should contain test-unit-sub-part.test.js', done => {
                     fetchPromise.then(({files}) => {
-                        files.should.include('examples/test-unit/part/test-unit-sub-part/test-unit-sub-part.test.js')
+                        files.should.include(`${targetTestPath}/part/test-unit-sub-part/test-unit-sub-part.test.js`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should contain test-unit-part.class.js', done => {
                     fetchPromise.then(({files}) => {
-                        files.should.include('examples/test-unit/part/test-unit-part.class.js')
+                        files.should.include(`${targetTestPath}/part/test-unit-part.class.js`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
 
                 it('Should not contain i-should-not-be.here.js', done => {
                     fetchPromise.then(({files}) => {
-                        files.should.not.include('examples/test-unit/section/i-should-not-be.here.js')
+                        files.should.not.include(`${targetTestPath}/section/i-should-not-be.here.js`)
                         done();
-                    }).catch(err => {
-                        done();
-                        throw err;
-                    });
+                    }).catch(done);
                 });
+            });
+        });
+
+        describe('copy', () => {
+            const allDataPromise = done => Promise.all([
+                    Mitosis.fetch(targetTestPath),
+                    Mitosis.copy(targetTestPath, destinationTestPath)
+                        .then(copy => Mitosis.fetch(destinationTestPath)
+                            .then(dest => ({ copy, dest })))
+                ])
+                .then(([target, {copy, dest}]) => ({ copy, dest, target }))
+                .catch(done);
+            done => Mitosis.copy(targetTestPath, destinationTestPath).then(copy => {
+                    return Mitosis.fetch(destinationTestPath).then(dest => ({
+                        copy,
+                        dest
+                    })).catch(done);
+                }).catch(done);
+
+            it('Should return the same, or a subset list, of fetched destination directories', done => {
+                allDataPromise(done)
+                    .then(({copy, dest}) => {
+                        dest.directories.should.include.members(copy.directories);
+                        done();
+                    });
+            });
+
+            it('Should return the same, or a subset list, of fetched destination files', done => {
+                allDataPromise(done)
+                    .then(({copy, dest}) => {
+                        dest.files.should.include.members(copy.files);
+                        done();
+                    });
+            });
+
+            it('Should return the same amount of fetched source directories', done => {
+                allDataPromise(done)
+                    .then(({copy, target}) => {
+                        target.directories.length.should.be.equal(copy.directories.length);
+                        done();
+                    });
+            });
+
+            it('Should return the same amount of fetched source files', done => {
+                allDataPromise(done)
+                    .then(({copy, target}) => {
+                        target.files.length.should.be.equal(copy.files.length);
+                        done();
+                    });
             });
         });
     });
 
+    after(() => {
+        const rimraf = require('rimraf');
+        const path = require('path');
+        rimraf.sync(path.join(process.cwd(), destinationTestPath));
+    });
 });

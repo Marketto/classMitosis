@@ -16,10 +16,27 @@ Command line tool to automatic copy and rename a folder of js classes
 npm install @marketto/class-mitosis -g
 ```
 
-
 ## Getting Started
 ```{r, engine='bash', run}
 mitosis -s source-dir -d destination-dir
+```
+### Running from source path
+```{r, engine='bash', run}
+mitosis -d destination-dir
+```
+### Different source/destination strings to seek/replace
+```{r, engine='bash', run}
+mitosis -s source-dir -d destination-dir -t target-string -r replacing-string
+```
+
+## Info
+### Version
+```{r, engine='bash', run}
+mitosis -v
+```
+### Help: List of available parameters
+```{r, engine='bash', run}
+mitosis -h
 ```
 
 ## Author
@@ -31,5 +48,10 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.3
+- Readme update
+- Reduced cognitive complexity in Mitosis.copy
+- Implemented copy promise return type as fetch {files, directories}
+- Implemented mocha/chai tests for fetch, replace, ABSOLUTE_PATH_MATCHER, pathFinalDir and multiCaseReplacer
 ### 1.0.2
 - Readme update
