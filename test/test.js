@@ -114,8 +114,16 @@ describe('Mitosis', () => {
                 replacer('test-string-test-test-string').should.be.equal('replaced-text-test-replaced-text');
             });
 
-            it('snake-case - Should replace test_string_test_test_string with replaced_text_test_replaced_text', () => {
+            it('KEBAP-CASE - Should replace TEST-STRING-TEST-TEST-STRING with REPLACED-TEXT-TEST-REPLACED-TEXT', () => {
+                replacer('TEST-STRING-TEST-TEST-STRING').should.be.equal('REPLACED-TEXT-TEST-REPLACED-TEXT');
+            });
+
+            it('snake_case - Should replace test_string_test_test_string with replaced_text_test_replaced_text', () => {
                 replacer('test_string_test_test_string').should.be.equal('replaced_text_test_replaced_text');
+            });
+
+            it('SNAKE_CASE - Should replace TEST_STRING_TEST_TEST_STRING with REPLACED_TEXT_TEST_REPLACED_TEXT', () => {
+                replacer('TEST_STRING_TEST_TEST_STRING').should.be.equal('REPLACED_TEXT_TEST_REPLACED_TEXT');
             });
 
             it('Start Case - Should replace "I am Test string" with "I am Replaced text"', () => {
@@ -128,6 +136,10 @@ describe('Mitosis', () => {
 
             it('Start case - Should replace "...rarely Test String" with "...rarely Replaced Text"', () => {
                 replacer('...rarely Test String').should.be.equal('...rarely Replaced Text');
+            });
+
+            it('START CASE - Should replace "...and now also TEST STRING" with "...and now also REPLACED TEXT"', () => {
+                replacer('...and now also TEST STRING').should.be.equal('...and now also REPLACED TEXT');
             });
         });
 

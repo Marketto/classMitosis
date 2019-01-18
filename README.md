@@ -48,6 +48,9 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.5
+- Added replacing of UPPER CASE, KEBAP-CASE, SNAKE_CASE
+- Replaced lodash lowercase with native lowercase to prevent - to be replaced with _
 ### 1.0.4
 - Reduced cognitive complexity in Mitosis.fetch
 - Added command line test

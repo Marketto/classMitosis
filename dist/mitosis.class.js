@@ -108,10 +108,13 @@ class Mitosis {
             _.camelCase,
             str => _.upperFirst(_.camelCase(str)),
             _.kebabCase,
+            str => _.kebabCase(str).toUpperCase(),
             _.snakeCase,
+            str => _.snakeCase(str).toUpperCase(),
             _.startCase,
-            str => _.lowerCase(_.startCase(str)),
-            str => _.upperFirst(_.lowerCase(_.startCase(str)))
+            str => _.startCase(str).toLowerCase(),
+            str => _.upperFirst(_.startCase(str).toLowerCase()),
+            str => _.startCase(str).toUpperCase()
         ];
         return str => ([str].concat(replacers)).reduce((text, replacer) => {
             return text.replace(new RegExp(replacer(targetString), 'g'), replacer(replacingString));
