@@ -18,47 +18,6 @@ logger.config = { error: true, info: false, debug: false, warn: false };
 describe('Mitosis', () => {
     const {Mitosis} = require('../');
 
-    describe('properties', () => {
-        describe('ABSOLUTE_PATH_MATCHER', () => {
-            describe('Win32', () => {
-                it('Should match d:\\test\\path\\data', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('d:\\test\\path\\data').should.be.true;
-                });
-
-                it('Should not match path\\data\\test', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('path\\data\\test').should.be.false;
-                });
-
-                it('Should not match \\data', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('\\data').should.be.false;
-                });
-
-                it('Should not match ..\\..\\data\\test', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('..\\..\\data\\test').should.be.false;
-                });
-            });
-
-            describe('Posix', () => {
-
-                it('Should match /test/path/data', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('/test/path/data').should.be.true;
-                });
-
-                it('Should not match path/data/test', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('path/data/test').should.be.false;
-                });
-
-                it('Should not match ./data', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('./data').should.be.false;
-                });
-
-                it('Should not match ../data/test', () => {
-                    Mitosis.ABSOLUTE_PATH_MATCHER.test('../data/test').should.be.false;
-                });
-            });
-        });
-    });
-
     describe('methods', () => {
         describe('pathFinalDir', () => {
             describe('Win32', () => {
@@ -257,50 +216,6 @@ describe('Mitosis', () => {
                         done();
                     });
             });
-        });
-    });
-
-    after(clearDestPath);
-});
-
-describe('MitosisProgram', () => {
-    const MitosisProgram = require('../dist/mitosis.program');
-
-    it('Should throw an error', done => {
-        MitosisProgram({
-            argv: [
-                process.argv[0],
-                'mitosis'
-            ],
-            cwd: process.cwd()
-        })
-        .then(status => {
-            status.should.be.equal(-1);
-            done();
-        })
-        .catch(err => {
-            err.message.should.be.equal('No destination path provided');
-            done();
-        });
-    });
-
-    it('Should perform the copy using local path', done => {
-        const testCurrentWorkingDir = path.join(process.cwd(), targetTestPath);
-        MitosisProgram({
-            argv: [
-                process.argv[0],
-                'commandline.js',
-                '-d',
-                path.relative(testCurrentWorkingDir, path.join(process.cwd(), destinationTestPath))
-            ],
-            cwd: testCurrentWorkingDir
-        })
-        .then(() => {
-            done();
-        })
-        .catch(err => {
-            logger.error(err);
-            done(err);
         });
     });
 

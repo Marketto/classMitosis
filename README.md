@@ -48,6 +48,11 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.6
+- Fixed bugs related to source relative path
+- Improved tests
+- Added default source path constant
+- Tests divided in different files per class
 ### 1.0.5
 - Added replacing of UPPER CASE, KEBAP-CASE, SNAKE_CASE
 - Replaced lodash lowercase with native lowercase to prevent - to be replaced with _

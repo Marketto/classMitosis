@@ -72,23 +72,10 @@ class Mitosis {
                         out.files = out.files.concat(files);
                         out.directories = out.directories.concat(directories);
                     });
-                    out.directories = _.sortedUniq(out.directories);
+                    out.directories = _.sortedUniq(out.directories.map(path.normalize));
                     return out;
                 });
             });
-    }
-
-    /**
-     * @property Mitosis::ABSOLUTE_PATH_MATCHER
-     * @author  Ricupero Marco
-     * @description Absolute path win/*nix
-     * @readonly
-     * @static
-     * @returns {Regexp} Regular expression to match an absolute win/*nix path
-     * @memberof Mitosis
-     */
-    static get ABSOLUTE_PATH_MATCHER() {
-        return /(?:^\/)|(?:^\w:\\)/i;
     }
 
     /**
@@ -160,12 +147,12 @@ class Mitosis {
      * @memberof Mitosis
      */
     static copy(srcPath, destPath, {
-        targetString = this.pathFinalDir(srcPath),
+        targetString = null,
         replacingString = this.pathFinalDir(destPath),
         encoding = 'utf8',
         cwd = process.cwd()
     } = {
-        targetString: this.pathFinalDir(srcPath),
+        targetString: null,
         replacingString: this.pathFinalDir(destPath),
         encoding: 'utf8',
         cwd: process.cwd()
@@ -174,11 +161,14 @@ class Mitosis {
         const path = require('path');
         const logger = require("@marketto/js-logger").global();
 
+        const srcFullPath = path.isAbsolute(srcPath) ? srcPath : path.join(cwd, srcPath);
+        const destFullPath = path.isAbsolute(destPath) ? destPath : path.join(cwd, destPath);
+        const basePath = path.join(srcFullPath, '..');
+        targetString = targetString || this.pathFinalDir(srcFullPath);
+
         logger.info(`Replacing ${targetString} => ${replacingString} in paths and contents...`);
         const replacer = this.multiCaseReplacer(targetString, replacingString);
 
-        const srcFullPath = this.ABSOLUTE_PATH_MATCHER.test(srcPath) ? srcPath : path.join(cwd, srcPath);
-        const destFullPath = this.ABSOLUTE_PATH_MATCHER.test(destPath) ? destPath : path.join(cwd, destPath);
 
         const promiser = syncFunction => {
             return async (...params) => syncFunction(...params);
@@ -195,13 +185,13 @@ class Mitosis {
             logger.info('Making directories...');
             directories
                 .sort()
-                .forEach(srcDir => {
-                    const destDir = replacer(path.relative(srcFullPath, srcDir));
-                    const destDirFullPath = path.join(destFullPath, destDir);
+                .forEach(srcDirFullPath => {
+                    const destDir = replacer(path.relative(basePath, srcDirFullPath));
+                    const destDirFullPath = path.join(basePath, destDir);
                     if (!fs.existsSync(destDirFullPath)) {
                         fs.mkdirSync(destDirFullPath);
                     }
-                    copiedResources.directories.push(path.join(destPath, destDir));
+                    copiedResources.directories.push(path.relative(cwd, destDirFullPath));
                 });
 
             logger.info('Copying files...');
