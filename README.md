@@ -48,6 +48,8 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.7
+- Fixed MitosisProgram default params
 ### 1.0.6
 - Fixed bugs related to source relative path
 - Improved tests

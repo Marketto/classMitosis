@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-const MitosisProgram = require('./dist/mitosis.program');
-MitosisProgram();
+const {mitosisProgram} = require('./dist/mitosis.program');
+mitosisProgram();

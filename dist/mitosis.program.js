@@ -45,12 +45,17 @@ class MitosisProgram {
 
     /**
      * @constructor
-     * @param {Object} param Main parameter object
-     * @param {Array<string>} param.argv command line arguments
-     * @param {string|Function} param.cwd Current Working Directory
+     * @param {Array<string>} argv command line arguments
+     * @param {string|Function} cwd Current Working Directory
      * @returns {Promise<number>} Returns the copy process final status
      */
-    constructor({argv = process.argv, cwd = process.cwd()}) {
+    constructor({
+        argv = process.argv,
+        cwd = process.cwd()
+    } = {
+        argv: process.argv,
+        cwd: process.cwd()
+    }) {
         const program = this.constructor.cmdParser(argv);
 
         const logger = require("@marketto/js-logger").global();
