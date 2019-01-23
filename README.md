@@ -48,6 +48,10 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ##Changelog
+### 1.0.8
+- Added command line test
+- Fixed issue related to creation of destination path
+- Standard project folder structure
 ### 1.0.7
 - Fixed MitosisProgram default params
 ### 1.0.6

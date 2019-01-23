@@ -6,17 +6,18 @@ chai.use(require('chai-things'));
 chai.should();
 
 const targetTestPath = 'examples/test-unit';
-const destinationTestPath = 'examples/chai-mitosi-test';
+const destinationTestBasePath = 'examples/chai';
+const destinationTestPath = path.join(destinationTestBasePath, 'deep/mitosi-test');
 
 const clearDestPath = () => {
     const rimraf = require('rimraf');
-    rimraf.sync(path.join(process.cwd(), destinationTestPath));
+    rimraf.sync(path.join(process.cwd(), destinationTestBasePath));
 };
 
 logger.config = { error: true, info: false, debug: false, warn: false };
 
 describe('MitosisProgram', () => {
-    const {mitosisProgram, MitosisProgram} = require('../dist/mitosis.program');
+    const {mitosisProgram, MitosisProgram} = require('../lib/mitosis.program');
 
     it('Should parse properly', done => {
         const program = MitosisProgram.cmdParser([

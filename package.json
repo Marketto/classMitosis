@@ -1,6 +1,6 @@
 {
   "name": "@marketto/class-mitosis",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Command line tool to automatic copy and rename a folder of js classes",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "coverage": "nyc report --reporter=lcovonly | coveralls"
   },
   "bin": {
-    "mitosis": "./commandline.js"
+    "mitosis": "./bin/mitosis.js"
   },
   "repository": {
     "type": "git",

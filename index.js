@@ -1,2 +1,2 @@
-const Mitosis = require('./dist/mitosis.class');
+const Mitosis = require('./lib/mitosis.class');
 module.exports.Mitosis = Mitosis;
