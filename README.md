@@ -47,7 +47,11 @@ mitosis -h
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
 
-##Changelog
+## Changelog
+### 1.0.9
+- Fixed destination parsing error
+- Implemented mkDirRecursive
+- Improved jsDocs and added jsDoc as dev dependency
 ### 1.0.8
 - Added command line test
 - Fixed issue related to creation of destination path

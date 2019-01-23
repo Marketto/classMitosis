@@ -5,13 +5,9 @@ const logger = require("@marketto/js-logger").global();
 chai.use(require('chai-things'));
 chai.should();
 
-const targetTestPath = 'examples/test-unit';
-const destinationTestBasePath = 'examples/chai';
-const destinationTestPath = path.join(destinationTestBasePath, 'deep/mitosi-test');
-
-const clearDestPath = () => {
+const clearDestPath = targetPath => {
     const rimraf = require('rimraf');
-    rimraf.sync(path.join(process.cwd(), destinationTestBasePath));
+    rimraf.sync(path.join(process.cwd(), targetPath));
 };
 
 logger.config = { error: true, info: false, debug: false, warn: false };
@@ -50,28 +46,59 @@ describe('MitosisProgram', () => {
         });
     });
 
-    it('Should perform the copy using local path', done => {
-        const testCurrentWorkingDir = path.join(process.cwd(), targetTestPath);
+    it('Should perform the copy using local path and deep dest', done => {
+        const currentWorkingTestDir = path.join(process.cwd(), 'examples/test-unit');
+        const folderToDelete = 'examples/chai';
+        const destinationTestPath = path.relative(currentWorkingTestDir, path.join(process.cwd(), folderToDelete, '/deep/mitosi-test'));
         mitosisProgram({
             argv: [
                 process.argv[0],
                 'mitosis',
                 '-d',
-                path.relative(testCurrentWorkingDir, path.join(process.cwd(), destinationTestPath))
+                destinationTestPath
             ],
-            cwd: testCurrentWorkingDir
+            cwd: currentWorkingTestDir
         })
         .then(({directories = [], files = []}) => {
             directories.should.not.be.empty;
             files.should.not.be.empty;
+            clearDestPath(path.relative(process.cwd(), folderToDelete));
             done();
         })
         .catch(err => {
             err.should.be.empty;
             logger.error(err);
+            clearDestPath(path.relative(process.cwd(), folderToDelete));
             done(err);
         });
     });
 
-    after(clearDestPath);
+    it('Should perform the copy using source and dest path', done => {
+        const currentWorkingTestDir = path.join(process.cwd(), 'examples');
+        const sourceTestPath = 'test-unit';
+        const destinationTestPath = 'chai-test';
+        mitosisProgram({
+            argv: [
+                process.argv[0],
+                'mitosis',
+                '-s',
+                sourceTestPath,
+                '-d',
+                destinationTestPath
+            ],
+            cwd: currentWorkingTestDir
+        })
+        .then(({directories = [], files = []}) => {
+            directories.should.not.be.empty;
+            files.should.not.be.empty;
+            clearDestPath(path.relative(process.cwd(), path.join(currentWorkingTestDir, destinationTestPath)));
+            done();
+        })
+        .catch(err => {
+            err.should.be.empty;
+            logger.error(err);
+            clearDestPath(path.relative(process.cwd(), path.join(currentWorkingTestDir, destinationTestPath)));
+            done(err);
+        });
+    });
 });

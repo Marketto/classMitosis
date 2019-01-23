@@ -1,11 +1,12 @@
 {
   "name": "@marketto/class-mitosis",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Command line tool to automatic copy and rename a folder of js classes",
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=lcovonly mocha",
-    "coverage": "nyc report --reporter=lcovonly | coveralls"
+    "coverage": "nyc report --reporter=lcovonly | coveralls",
+    "docs": "jsdoc . -c jsdoc.json"
   },
   "bin": {
     "mitosis": "./bin/mitosis.js"
@@ -36,6 +37,8 @@
     "chai": "^4.2.0",
     "chai-things": "^0.2.0",
     "coveralls": "^3.0.2",
+    "foodoc": "0.0.9",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "rimraf": "^2.6.3",
