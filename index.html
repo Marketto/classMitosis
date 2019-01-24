@@ -1,0 +1,153 @@
+<!-- start:readme.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>@Marketto/class-mitosis</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"@Marketto/class-mitosis","systemSummary":"Automatic copy and renaming folder/files tool","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					@Marketto/class-mitosis
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Mitosis.html">Mitosis</a></li>
+											<li><a href="MitosisProgram.html">MitosisProgram</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">readme</span>
+				<h1><span class="name">@Marketto/class-mitosis</span></h1>
+				<div class="summary"><p>Automatic copy and renaming folder/files tool</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+		<section class="readme-section">
+			<article><h1>class-mitosis</h1><p><a href="https://www.npmjs.org/package/@marketto/class-mitosis"><img src="http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat" alt="NPM Version"></a>
+<a href="https://npmcharts.com/compare/@marketto/class-mitosis?minimal=true"><img src="https://img.shields.io/npm/dm/@marketto/class-mitosis.svg?style=flat" alt="NPM Downloads"></a>
+<a href="https://sonarcloud.io/dashboard/index/Marketto_mitosis"><img src="https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&amp;metric=alert_status" alt="Quality Gate"></a>
+<a href="https://sonarcloud.io/dashboard/index/Marketto_mitosis"><img src="https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&amp;metric=coverage" alt="Coverage"></a>
+<a href="https://sonarcloud.io/dashboard/index/Marketto_mitosis"><img src="https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&amp;metric=sqale_rating" alt="Maintainability"></a>
+<a href="https://sonarcloud.io/dashboard/index/Marketto_mitosis"><img src="https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&amp;metric=reliability_rating" alt="Reliability"></a>
+<img src="http://ci.marketto.it/buildStatus/icon?job=mitosis" alt="Build Status"></p>
+<p>Command line tool to automatic copy and rename a folder of js classes</p>
+<h2>Installation</h2><p><code>`</code>{r, engine='bash', global_install}
+npm install @marketto/class-mitosis -g</p>
+<pre class="prettyprint source"><code>
+## Getting Started
+```{r, engine='bash', run}
+mitosis -s source-dir -d destination-dir</code></pre><h3>Running from source path</h3><p><code>`</code>{r, engine='bash', run}
+mitosis -d destination-dir</p>
+<pre class="prettyprint source"><code>### Different source/destination strings to seek/replace
+```{r, engine='bash', run}
+mitosis -s source-dir -d destination-dir -t target-string -r replacing-string</code></pre><h2>Info</h2><h3>Version</h3><p><code>`</code>{r, engine='bash', run}
+mitosis -v</p>
+<pre class="prettyprint source"><code>### Help: List of available parameters
+```{r, engine='bash', run}
+mitosis -h</code></pre><h2>Author</h2><p><strong>Marco Ricupero</strong> - <a href="https://github.com/Marketto">Github</a> - <a href="http://blog.marketto.it">Blog</a></p>
+<h2>License</h2><p>This project is licensed under the MIT License - see the <a href="/LICENSE">License</a> file for details</p>
+<h2>Changelog</h2><h3>1.0.9</h3><ul>
+<li>Fixed destination parsing error</li>
+<li>Implemented mkDirRecursive</li>
+<li>Improved jsDocs and added jsDoc as dev dependency<h3>1.0.8</h3></li>
+<li>Added command line test</li>
+<li>Fixed issue related to creation of destination path</li>
+<li>Standard project folder structure<h3>1.0.7</h3></li>
+<li>Fixed MitosisProgram default params<h3>1.0.6</h3></li>
+<li>Fixed bugs related to source relative path</li>
+<li>Improved tests</li>
+<li>Added default source path constant</li>
+<li>Tests divided in different files per class<h3>1.0.5</h3></li>
+<li>Added replacing of UPPER CASE, KEBAP-CASE, SNAKE_CASE</li>
+<li>Replaced lodash lowercase with native lowercase to prevent - to be replaced with _<h3>1.0.4</h3></li>
+<li>Reduced cognitive complexity in Mitosis.fetch</li>
+<li>Added command line test</li>
+<li>Fixed path issue on fetch in copy method</li>
+<li>Removed catch in Mitosis promise to prevent false positive<h3>1.0.3</h3></li>
+<li>Readme update</li>
+<li>Reduced cognitive complexity in Mitosis.copy</li>
+<li>Implemented copy promise return type as fetch {files, directories}</li>
+<li>Implemented mocha/chai tests for fetch, replace, ABSOLUTE_PATH_MATCHER, pathFinalDir and multiCaseReplacer<h3>1.0.2</h3></li>
+<li>Readme update</li>
+</ul></article>
+		</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on 24th Jan 2019 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:readme.hbs -->
