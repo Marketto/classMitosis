@@ -48,6 +48,9 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ## Changelog
+### 1.0.10
+- Fixed replacingString param bind to Mitosis typo
+- Added param parsing unit test
 ### 1.0.9
 - Fixed destination parsing error
 - Implemented mkDirRecursive

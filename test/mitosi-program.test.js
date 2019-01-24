@@ -14,18 +14,41 @@ logger.config = { error: true, info: false, debug: false, warn: false };
 
 describe('MitosisProgram', () => {
     const {mitosisProgram, MitosisProgram} = require('../lib/mitosis.program');
+    const targetString = 'target-text';
+    const replacingString = 'replacing-text';
+    const testDest = './test';
 
-    it('Should parse properly', done => {
-        const program = MitosisProgram.cmdParser([
-            process.argv[0],
-            'mitosis',
-            '-d',
-            './test'
-        ]);
+    describe('cmdParser', () => {
+        it('Should return default source path', done => {
+            const program = MitosisProgram.cmdParser([
+                process.argv[0],
+                'mitosis',
+                '-d',
+                testDest
+            ]);
 
-        program.source.should.be.equal(MitosisProgram.DEFAULT_SOURCE_PATH);
-        program.destination.should.be.equal('./test');
-        done();
+            program.source.should.be.equal(MitosisProgram.DEFAULT_SOURCE_PATH);
+            program.destination.should.be.equal(testDest);
+            done();
+        });
+
+        it('Should parse properly destination, target and replacing', done => {
+            const program = MitosisProgram.cmdParser([
+                process.argv[0],
+                'mitosis',
+                '-d',
+                testDest,
+                '-t',
+                targetString,
+                '-r',
+                replacingString
+            ]);
+
+            program.target.should.be.equal(targetString);
+            program.replacing.should.be.equal(replacingString);
+            program.destination.should.be.equal(testDest);
+            done();
+        });
     });
 
     it('Should throw an error', done => {
