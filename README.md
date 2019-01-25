@@ -48,6 +48,8 @@ This project is licensed under the MIT License - see the [License](/LICENSE) fil
 
 
 ## Changelog
+### 1.1.1
+- Sonar config to exclude docs from coverage
 ### 1.1.0
 - Docs
 ### 1.0.10
