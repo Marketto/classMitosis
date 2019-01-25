@@ -1,13 +1,12 @@
 {
   "name": "@marketto/class-mitosis",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "Command line tool to automatic copy and rename a folder of js classes",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcovonly mocha",
-    "coverage": "nyc report --reporter=lcovonly | coveralls",
-    "docs": "jsdoc . -c jsdoc.json"
-  },
+    "test": "node node_modules/nyc/bin/nyc.js --reporter=lcovonly mocha",
+    "coverage": "node node_modules/nyc/bin/nyc.js report --reporter=lcovonly | coveralls",
+    "docs": "node node_modules/jsdoc/jsdoc.js . -c jsdoc.json"  },
   "bin": {
     "mitosis": "./bin/mitosis.js"
   },
@@ -25,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/Marketto/classMitosis/issues"
   },
-  "homepage": "https://github.com/Marketto/classMitosis#readme",
+  "homepage": "https://marketto.github.io/classMitosis",
   "dependencies": {
     "@marketto/js-logger": "^1.0.1",
     "commander": "^2.19.0",
