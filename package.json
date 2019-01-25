@@ -1,12 +1,13 @@
 {
   "name": "@marketto/class-mitosis",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Command line tool to automatic copy and rename a folder of js classes",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/nyc/bin/nyc.js --reporter=lcovonly mocha",
     "coverage": "node node_modules/nyc/bin/nyc.js report --reporter=lcovonly | coveralls",
-    "docs": "node node_modules/jsdoc/jsdoc.js . -c jsdoc.json"  },
+    "docs": "node node_modules/jsdoc/jsdoc.js . -c jsdoc.json"
+  },
   "bin": {
     "mitosis": "./bin/mitosis.js"
   },
