@@ -1,6 +1,7 @@
 # class-mitosis
 
-[![NPM Version](http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat)](https://www.npmjs.org/package/@marketto/class-mitosis)
+[![NPM Version](http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat)](https://www.npmjs.org/package/@marketto/class-mitosis)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_shield)
+
 [![NPM Downloads](https://img.shields.io/npm/dm/@marketto/class-mitosis.svg?style=flat)](https://npmcharts.com/compare/@marketto/class-mitosis?minimal=true)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&metric=alert_status)](https://sonarcloud.io/dashboard/index/Marketto_mitosis)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&metric=coverage)](https://sonarcloud.io/dashboard/index/Marketto_mitosis)
@@ -46,6 +47,9 @@ mitosis -h
 ## License
 This project is licensed under the MIT License - see the [License](/LICENSE) file for details
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_large)
 
 ## Changelog
 ### 1.1.1
