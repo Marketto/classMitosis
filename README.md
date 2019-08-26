@@ -1,6 +1,7 @@
 # class-mitosis
 
-[![NPM Version](http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat)](https://www.npmjs.org/package/@marketto/class-mitosis)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_shield)
+[![NPM Version](http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat)](https://www.npmjs.org/package/@marketto/class-mitosis)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_shield)
 
 [![NPM Downloads](https://img.shields.io/npm/dm/@marketto/class-mitosis.svg?style=flat)](https://npmcharts.com/compare/@marketto/class-mitosis?minimal=true)
 [![Dependency status](https://david-dm.org/Marketto/classMitosis.svg)](https://david-dm.org/Marketto/classMitosis)
@@ -10,6 +11,7 @@
 [![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&metric=sqale_rating)](https://sonarcloud.io/dashboard/index/Marketto_mitosis)
 [![Reliability](https://sonarcloud.io/api/project_badges/measure?project=Marketto_mitosis&metric=reliability_rating)](https://sonarcloud.io/dashboard/index/Marketto_mitosis)
 ![Build Status](http://ci.marketto.it/buildStatus/icon?job=mitosis)
+[![LICENSE](https://img.shields.io/badge/licese-MIT-gold.svg)](https://github.com/Marketto/classMitosis/blob/master/LICENSE)
 [![Blog](https://img.shields.io/badge/blog-marketto-blue.svg)](http://blog.marketto.it)
 [![Buy me a coffee](https://img.shields.io/badge/Ko--fi-donate-blueviolet)](https://ko-fi.com/marketto)
 
@@ -39,14 +41,10 @@ mitosis -s source-dir -d destination-dir -t target-string -r replacing-string
 ```{r, engine='bash', run}
 mitosis -v
 ```
-### Help: List of available parameters
+### Help
 ```{r, engine='bash', run}
 mitosis -h
 ```
-
-
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_large)
 
 ## Changelog
 ### 1.1.1
