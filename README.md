@@ -2,7 +2,6 @@
 
 [![NPM Version](http://img.shields.io/npm/v/@marketto/class-mitosis.svg?style=flat)](https://www.npmjs.org/package/@marketto/class-mitosis)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarketto%2FclassMitosis?ref=badge_shield)
-
 [![NPM Downloads](https://img.shields.io/npm/dm/@marketto/class-mitosis.svg?style=flat)](https://npmcharts.com/compare/@marketto/class-mitosis?minimal=true)
 [![Dependency status](https://david-dm.org/Marketto/classMitosis.svg)](https://david-dm.org/Marketto/classMitosis)
 [![Dev dependency status](https://david-dm.org/Marketto/classMitosis/dev-status.svg)](https://david-dm.org/Marketto/classMitosis?type=dev)
